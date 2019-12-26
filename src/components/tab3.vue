@@ -53,7 +53,7 @@ export default {
       var arr = [];
       for (let key in obj) {
         let item = obj[key];
-        this.
+        
         arr.push({ value: item, text: item.issuer });
       }
       return arr;
