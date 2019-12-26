@@ -7,8 +7,7 @@
         <tab1/>
       </b-tab>
       <b-tab title="機構頒發出席證明">
-        <p>機構頒發出席證明
-        </p>
+        <tab2/>
       </b-tab>
       <b-tab title="機構驗證出席證明">
         <p>機構驗證出席證明</p>
@@ -22,13 +21,15 @@
 </template>
 <script>
 import tab1 from "./tab1";
+import tab2 from "./tab2";
 export default {
   name: 'layout',
   props: {
     msg: String
   },
   components: {
-    tab1
+    tab1,
+    tab2
   }
 }
 </script>

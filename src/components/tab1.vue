@@ -79,7 +79,7 @@ export default {
         .post(config.fisco_bcos.url, {
           functionArg: {
             weId: user.weId,
-            name: user.name
+            name: user.name+"_"+user.weId.substr(30)
           },
           transactionArg: {
             invokerWeId: "ecdsa_key"

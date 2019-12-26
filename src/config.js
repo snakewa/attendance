@@ -2,7 +2,7 @@
 var config=
 {
     "fisco_bcos":{
-        "host":"192.168.2.72",
+        "host":"192.168.0.115",
         "port":"6001",
         "base":"/weid/api/invoke"
     }
