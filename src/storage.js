@@ -1,61 +1,71 @@
-var store={
-    set(key,value){
+var store = {
+    set(key, value) {
         if (typeof value != "string")
-            value=JSON.stringify(value);
-        localStorage.setItem(key,value);
+            value = JSON.stringify(value);
+        localStorage.setItem(key, value);
     },
-    get(key){
-        let value=localStorage.getItem(key);
-        try{value=JSON.parse(value)}catch(e){}
+    get(key) {
+        let value = localStorage.getItem(key);
+        try { value = JSON.parse(value) } catch (e) { }
         return value;
     },
-    putUser(weId,value){
-        let users=this.get("users");
-        if(users==undefined){
-            users={}
-        }
-        users[weId]=value;
-        this.set("users",users);
+    putUser(weId, value) {
+        let users = this.get("users");
+        if (users == undefined) users = {}
+
+        users[weId] = value;
+        this.set("users", users);
     },
-    getUser(weId){
-        let users=this.get("users");
-        if(users==undefined){
-            users={}
-        }
+    getUser(weId) {
+        let users = this.get("users");
+        if (users == undefined) users = {}
+
         return users[weId];
     },
-    getAllUsers(){
-        let users=this.get("users");
-        let arr=[];
-        for(let weId in users){
-            users[weId].name=users[weId].name.replace("_"+weId.substr(30),"");
+    getCredentials(weId) {
+        let credentials = this.get("credentials");
+        if (credentials == undefined) credentials = {};
+        return credentials[weId];
+    },
+    putCredential(credential) {
+        let credentials = this.get("credentials");
+        if (credentials == undefined) credentials = {};
+        if (credentials[credential.claim.receiver] == undefined) credentials[credential.claim.receiver] = [];
+        credentials[credential.claim.receiver].push(credential);
+        this.set("credentials", credentials);
+    },
+    getAllUsers() {
+        let users = this.get("users");
+        let arr = [];
+        for (let weId in users) {
+            users[weId].name = users[weId].name.replace("_" + weId.substr(30), "");
             arr.push(users[weId]);
         }
         return arr;
     },
-    getAdmin(){
-        let users=this.get("users");
-        for(let weId in users)
-            if(users[weId].name=="admin")return users[weId];
+    getAdmin() {
+        let users = this.get("users");
+        for (let weId in users)
+            if (users[weId].name == "admin") return users[weId];
         return null;
     },
-    getAllOrganization(){
-        let users=this.get("users");
-        let arr=[];
-        for(let weId in users){
-            if(users[weId].userType=="organization"){
-                users[weId].name=users[weId].name.replace("_"+weId.substr(30),"");
+    getAllOrganization() {
+        let users = this.get("users");
+        let arr = [];
+        for (let weId in users) {
+            if (users[weId].userType == "organization") {
+                users[weId].name = users[weId].name.replace("_" + weId.substr(30), "");
                 arr.push(users[weId]);
             }
         }
         return arr;
     },
-    getAllPureUser(){
-        let users=this.get("users");
-        let arr=[];
-        for(let weId in users){
-            if(users[weId].userType=="user"){
-                users[weId].name=users[weId].name.replace("_"+weId.substr(30),"");
+    getAllPureUser() {
+        let users = this.get("users");
+        let arr = [];
+        for (let weId in users) {
+            if (users[weId].userType == "user") {
+                users[weId].name = users[weId].name.replace("_" + weId.substr(30), "");
                 arr.push(users[weId]);
             }
         }

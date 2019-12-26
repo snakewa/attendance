@@ -13,8 +13,8 @@ Vue.config.productionTip = false
 Vue.prototype.$store = store;
 
 let admin = store.getAdmin();
-let cptId= store.get("cptId");
-console.log("admin",admin);
+let cptId = store.get("cptId");
+console.log("admin", admin);
 if (admin == null)
   axios.post(config.fisco_bcos.url, {
     functionArg: {},
@@ -55,16 +55,18 @@ if (admin == null)
       "v": "1.0.0",
       "functionName": "registerCpt"
     }).then(function (response) {
-      cptId=response.data.respBody.cptId;
-      store.set("cptId",cptId);
+      cptId = response.data.respBody.cptId;
+      store.set("cptId", cptId);
       location.reload();
     });
   });
 
-Vue.prototype.$admin = admin;
-Vue.prototype.$cptId = cptId;
-
+Vue.prototype.$vars = { admin, cptId, pureUsers: [], organizations: [],pureUsersOptions: [], organizationsOptions: [] }
 var vm = new Vue({
+  data:{
+    pureUsersOptions:[],
+    organizationsOptions:[]
+  },
   render: h => h(App),
 }).$mount('#app')
 window.vm = vm;
