@@ -22,6 +22,7 @@ if (admin == null)
     v: "1.0.0",
     functionName: "createWeId"
   }).then(function (response) {
+    console.log("admin createWeId", response)
     let weId = response.data.respBody;
     admin = {
       weId: weId,
@@ -55,6 +56,7 @@ if (admin == null)
       "v": "1.0.0",
       "functionName": "registerCpt"
     }).then(function (response) {
+      console.log("cptJsonSchema ", response)
       cptId = response.data.respBody.cptId;
       store.set("cptId", cptId);
       location.reload();

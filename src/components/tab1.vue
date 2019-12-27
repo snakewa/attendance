@@ -59,6 +59,7 @@ export default {
           functionName: "createWeId"
         })
         .then(function(response) {
+          console.log("registWeId",response)
           _this.weId = response.data.respBody;
           let user = {
             weId: _this.weId,
