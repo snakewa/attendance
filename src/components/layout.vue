@@ -49,7 +49,7 @@ export default {
       let _this = this
       this.$axios
         .post(config.fisco_bcos.jsonrpc_url, 
-         {"jsonrpc":"2.0","method":"getBlockNumber","params":[1],"id":1},{timeout: 1000}
+         {"jsonrpc":"2.0","method":"getBlockNumber","params":[1],"id":1},{timeout: 1500}
         )
         .then(function(response) {
           //console.log("getBlockNumber",response)
