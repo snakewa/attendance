@@ -38,7 +38,7 @@ var store = {
         let users = this.get("users");
         let arr = [];
         for (let weId in users) {
-            users[weId].name = users[weId].name.replace("_" + weId.substr(30), "");
+            users[weId].name = users[weId].name.replace("_" + weId.substr(45), "");
             arr.push(users[weId]);
         }
         return arr;
@@ -54,7 +54,7 @@ var store = {
         let arr = [];
         for (let weId in users) {
             if (users[weId].userType == "organization") {
-                users[weId].name = users[weId].name.replace("_" + weId.substr(30), "");
+                users[weId].name = users[weId].name.replace("_" + weId.substr(45), "");
                 arr.push(users[weId]);
             }
         }
@@ -65,7 +65,7 @@ var store = {
         let arr = [];
         for (let weId in users) {
             if (users[weId].userType == "user") {
-                users[weId].name = users[weId].name.replace("_" + weId.substr(30), "");
+                users[weId].name = users[weId].name.replace("_" + weId.substr(45), "");
                 arr.push(users[weId]);
             }
         }
