@@ -44,6 +44,7 @@ export default {
         this.$root.$data.pureUsers
       );
       this.$refs.tab3.changeUser();
+      this.$refs.tab4.changeOrg();
     },
     convertOptions(obj) {
       var arr = [];

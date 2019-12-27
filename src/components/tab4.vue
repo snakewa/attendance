@@ -1,25 +1,85 @@
 <template>
   <div>
-    <b-container>
+    <b-container class="mb-3">
       <b-row>
         <b-col sm="3">
           <label>驗證機構</label>
         </b-col>
         <b-col sm="9">
-          <b-form-select v-model="selectedOrg" :options="$root.$data.organizationsOptions"></b-form-select>
+          <b-form-select v-model="selectedOrg" :options="$root.$data.organizationsOptions" @change="changeOrg"></b-form-select>
+        </b-col>
+      </b-row>
+      <b-row>
+        <b-col v-for="c in orgC" v-bind:key="c.id">
+          <b-card
+            :title="$store.getUser(c.claim.receiver).name"
+            tag="article"
+            style="max-width:500px"
+            class="mt-2"
+          >
+            <b-card-text>
+              <p>{{$store.getUser(c.issuer).name}}--{{c.claim.content}}</p>
+              <span class="text-nowrap">{{c.claim.starttime}}--{{c.claim.endtime}}</span>
+            </b-card-text>
+
+            <b-button href="#" variant="primary" @click="verify(c)">驗證</b-button>
+          </b-card>
         </b-col>
       </b-row>
     </b-container>
   </div>
 </template>
 <script>
+import config from "./../config.js";
 export default {
   data() {
     return {
       selectedOrg: this.$root.$data.organizations[0],
-      selectedCredential: null,
-      selectedUser: this.$root.$data.pureUsers[0]
+      orgC: []
     };
+  },
+  methods: {
+    changeOrg() {
+      this.orgC = this.$store.getAuthCredentials(
+        this.selectedOrg.weId
+      );
+    },
+    verify(credential) {
+      var _this = this;
+      let requestData = {
+        functionArg: credential,
+        transactionArg: {},
+        v: "1.0.0",
+        functionName: "verifyCredential"
+      };
+      console.log("verifyCredential requestData", requestData);
+      this.$axios
+        .post(config.fisco_bcos.url, requestData)
+        .then(function(response) {
+          console.log(response);
+          let result = response.data.respBody;
+          if (result)
+            _this.$bvModal.msgBoxOk("驗證成功", {
+              title: "結果",
+              size: "sm",
+              buttonSize: "sm",
+              okVariant: "success",
+              headerClass: "p-2 border-bottom-0",
+              footerClass: "p-2 border-top-0",
+              centered: true
+            });
+          else
+            _this.$bvModal.msgBoxOk("驗證失敗", {
+              title: "結果",
+              size: "sm",
+              buttonSize: "sm",
+              okVariant: "danger",
+              headerClass: "p-2 border-bottom-0",
+              footerClass: "p-2 border-top-0",
+              centered: true
+            });
+        });
+    }
   }
 };
 </script>
