@@ -1,5 +1,7 @@
 <template>
   <div>
+
+
     <b-container class="mb-3">
       <b-row>
         <b-col sm="3">
@@ -34,6 +36,7 @@
         </b-col>
       </b-row>
     </b-container>
+   
   </div>
 </template>
 <script>
@@ -42,7 +45,7 @@ export default {
   data() {
     return {
       selectedOrg: this.$root.$data.organizations[0],
-      orgC: []
+      orgC: [],
     };
   },
   methods: {
@@ -51,6 +54,7 @@ export default {
       this.orgC = this.$store.getAuthCredentials(this.selectedOrg.weId);
     },
     verify(credential) {
+      console.log("verify credential", credential);
       var _this = this;
       let requestData = {
         functionArg: credential,

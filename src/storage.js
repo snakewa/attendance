@@ -25,6 +25,7 @@ var store = {
     getCredentials(weId) {
         let credentials = this.get("credentials");
         if (credentials == undefined) credentials = {};
+        if(weId==undefined) return credentials;
         return credentials[weId];
     },
     putCredential(credential) {
@@ -32,6 +33,7 @@ var store = {
         if (credentials == undefined) credentials = {};
         if (credentials[credential.claim.receiver] == undefined) credentials[credential.claim.receiver] = [];
         credentials[credential.claim.receiver].push(credential);
+        console.log({credentials})
         this.set("credentials", credentials);
     },
     getAllUsers() {

@@ -37,6 +37,7 @@ import config from "./../config.js";
 export default {
   data() {
     return {
+      blockNumber:123,
       name: "",
       weId: null,
       items: this.$store.getAllUsers(),
@@ -46,6 +47,8 @@ export default {
         { text: "機構", value: "organization" }
       ]
     };
+  },
+  created () {
   },
   computed: {},
   methods: {
@@ -59,10 +62,10 @@ export default {
           functionName: "createWeId"
         })
         .then(function(response) {
-          console.log("registWeId",response)
+          console.log("registWeId ",response)
           _this.weId = response.data.respBody;
           let user = {
-            weId: _this.weId,
+              weId: _this.weId,
             name: _this.name,
             userType: _this.userType
           };
@@ -80,7 +83,7 @@ export default {
         .post(config.fisco_bcos.url, {
           functionArg: {
             weId: user.weId,
-            name: user.name+"_"+user.weId.substr(45)
+            name: user.name+"_"+user.weId.substr(30)
           },
           transactionArg: {
             invokerWeId: "ecdsa_key"

@@ -60,10 +60,36 @@
     </b-container>
 
     <b-button variant="primary" @click="createCredential">簽發證明</b-button>
+<div v-if="credentialJson">
+  <b-container class="bv-example-row">
+  <b-row>
+    <b-col class="add_padding"> <b-form-textarea
+      id="textarea"
+      v-model="credentialJson"
+      placeholder=""
+      rows="3"
+      max-rows="6"
+      
+    ></b-form-textarea>
+    <qrcode :value="credentialJson" :options="{ width: 500 }"></qrcode>
+
+    
+    </b-col> 
+  </b-row>
+</b-container>
+  
+    </div>
+
+
+    
   </div>
 </template>
 <script>
 import config from "./../config.js";
+import Vue from 'vue';
+import VueQrcode from '@chenfengyuan/vue-qrcode';
+Vue.component(VueQrcode.name, VueQrcode);
+
 export default {
   data() {
     return {
@@ -83,7 +109,8 @@ export default {
         ("0" + (new Date().getMonth() + 1)).slice(-2) +
         "-" +
         ("0" + new Date().getDate()).slice(-2),
-      endTimeStr: new Date().toTimeString().substr(0, 5)
+      endTimeStr: new Date().toTimeString().substr(0, 5),
+      credentialJson:''
     };
   },
   computed: {
@@ -109,6 +136,7 @@ export default {
       }
       return arr;
     }
+    
   },
   methods: {
     convertOptions(obj) {
@@ -152,6 +180,7 @@ export default {
         .then(function(response) {
           let credential = response.data.respBody;
           _this.$store.putCredential(credential);
+          _this.$data.credentialJson = JSON.stringify(credential);
           _this.$bvModal.msgBoxOk("出席證明簽發成功", {
             title: "結果",
             size: "sm",
@@ -167,6 +196,7 @@ export default {
   created() {
     this.$root.$data.organizations = this.$store.getAllOrganization();
     this.$root.$data.pureUsers = this.$store.getAllPureUser();
+    //window.$store=this.$root.$store
     try {
       this.selectedOrg = this.$root.$data.organizations[0];
       this.selectedUser = this.$root.$data.pureUsers[0];

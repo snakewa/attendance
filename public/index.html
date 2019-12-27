@@ -6,6 +6,31 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <link rel="icon" href="<%= BASE_URL %>favicon.ico">
     <title>attendance</title>
+    <style>
+      .add_padding{
+        padding:5px;
+      }
+
+      .drop-area {
+        height: 100px;
+        width: 100px;
+        color: #fff;
+        text-align: center;
+        font-weight: bold;
+        padding: 10px;
+      
+        background-color: rgba(0,0,0,.5);
+      }
+      
+      .dragover {
+        background-color: rgba(0,0,0,.8);
+      }
+      
+      .drop-error {
+        color: red;
+        font-weight: bold;
+      }
+    </style>
   </head>
   <body>
     <noscript>
