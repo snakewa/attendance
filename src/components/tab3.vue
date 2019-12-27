@@ -44,6 +44,7 @@ export default {
   },
   methods: {
     changeUser() {
+      if (this.selectedUser == undefined) return;
       this.$root.$data.credentials = this.$store.getCredentials(
         this.selectedUser.weId
       );
@@ -68,9 +69,7 @@ export default {
       return arr;
     },
     authorize() {
-      let orgC=this.$store.getAuthCredentials(
-        this.selectedOrg.weId
-      );
+      let orgC = this.$store.getAuthCredentials(this.selectedOrg.weId);
       for (let i in orgC) {
         if (orgC[i].id == this.selectedCredential.id) {
           this.$bvModal.msgBoxOk("已經授權", {

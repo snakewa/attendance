@@ -6,7 +6,11 @@
           <label>驗證機構</label>
         </b-col>
         <b-col sm="9">
-          <b-form-select v-model="selectedOrg" :options="$root.$data.organizationsOptions" @change="changeOrg"></b-form-select>
+          <b-form-select
+            v-model="selectedOrg"
+            :options="$root.$data.organizationsOptions"
+            @change="changeOrg"
+          ></b-form-select>
         </b-col>
       </b-row>
       <b-row>
@@ -40,9 +44,8 @@ export default {
   },
   methods: {
     changeOrg() {
-      this.orgC = this.$store.getAuthCredentials(
-        this.selectedOrg.weId
-      );
+      if (this.selectedOrg == undefined) return;
+      this.orgC = this.$store.getAuthCredentials(this.selectedOrg.weId);
     },
     verify(credential) {
       var _this = this;
