@@ -70,6 +70,18 @@ var store = {
             }
         }
         return arr;
+    },
+    getAuthCredentials(orgWeId){
+        let authCredentials = this.get("authCredentials");
+        if (authCredentials == undefined) authCredentials = {};
+        return authCredentials[orgWeId];
+    },
+    putAuthCredentials(orgWeId,credential){
+        let authCredentials = this.get("authCredentials");
+        if (authCredentials == undefined) authCredentials = {};
+        if (authCredentials[orgWeId] == undefined ) authCredentials[orgWeId] = [];
+        authCredentials[orgWeId].push(credential);
+        this.set("authCredentials",authCredentials)
     }
 }
 export default store;

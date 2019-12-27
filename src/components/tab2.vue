@@ -95,16 +95,16 @@ export default {
     },
     orgOptions() {
       var arr = [];
-      for (let key in this.$vars.organizations) {
-        let org = this.$vars.organizations[key];
+      for (let key in this.$root.$data.organizations) {
+        let org = this.$root.$data.organizations[key];
         arr.push({ value: org, text: org.name });
       }
       return arr;
     },
     userOptions() {
       var arr = [];
-      for (let key in this.$vars.pureUsers) {
-        let org = this.$vars.pureUsers[key];
+      for (let key in this.$root.$data.pureUsers) {
+        let org = this.$root.$data.pureUsers[key];
         arr.push({ value: org, text: org.name });
       }
       return arr;
@@ -130,7 +130,7 @@ export default {
       let requestData = {
         functionArg: {
           issuer: this.selectedOrg.weId,
-          cptId: this.$vars.cptId,
+          cptId: this.$root.$data.cptId,
           expirationDate: expirationDate.toISOString().replace(".000Z", "Z"),
           claim: {
             weid: this.selectedOrg.weId,
@@ -152,22 +152,24 @@ export default {
         .then(function(response) {
           let credential = response.data.respBody;
           _this.$store.putCredential(credential);
-          console.log("putCredential", credential);
+          _this.$bvModal.msgBoxOk("出席證明簽發成功", {
+            title: "結果",
+            size: "sm",
+            buttonSize: "sm",
+            okVariant: "success",
+            headerClass: "p-2 border-bottom-0",
+            footerClass: "p-2 border-top-0",
+            centered: true
+          });
         });
     }
   },
-  watch:{
-      $vars(){
-          console.log("change $vars");
-      }
-  },
   created() {
-    this.$vars.organizations = this.$store.getAllOrganization();
-    this.$vars.pureUsers = this.$store.getAllPureUser();
-    console.log(this);
+    this.$root.$data.organizations = this.$store.getAllOrganization();
+    this.$root.$data.pureUsers = this.$store.getAllPureUser();
     try {
-      this.selectedOrg = this.$vars.organizations[0];
-      this.selectedUser = this.$vars.pureUsers[0];
+      this.selectedOrg = this.$root.$data.organizations[0];
+      this.selectedUser = this.$root.$data.pureUsers[0];
     } catch (e) {}
   }
 };
