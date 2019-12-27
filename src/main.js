@@ -63,11 +63,16 @@ if (admin == null)
     });
   });
 
-Vue.prototype.$vars = { admin, cptId, pureUsers: [], organizations: [],pureUsersOptions: [], organizationsOptions: [] }
 var vm = new Vue({
   data:{
+    admin,
+    cptId,
+    pureUsers: [], 
+    organizations: [],
     pureUsersOptions:[],
-    organizationsOptions:[]
+    organizationsOptions:[],
+    credentials:[],
+    credentialsOptions:[]
   },
   render: h => h(App),
 }).$mount('#app')
