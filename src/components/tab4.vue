@@ -22,8 +22,11 @@
             class="mt-2"
           >
             <b-card-text>
-              <p>{{$store.getUser(c.issuer).name}}--{{c.claim.content}}</p>
-              <span class="text-nowrap">{{c.claim.starttime}}--{{c.claim.endtime}}</span>
+              <p>地點： {{$store.getUser(c.issuer).name}}</p>
+              <p>內容: {{c.claim.content}}</p>
+              <p>開始時間: {{c.claim.starttime}}</p>
+              <p>結束時間: {{c.claim.endtime}}</p>
+              <small>證書UUID：{{c.id}}</small>
             </b-card-text>
 
             <b-button href="#" variant="primary" @click="verify(c)">驗證</b-button>
