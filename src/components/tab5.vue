@@ -75,30 +75,22 @@ export default {
         .then(function(response) {
           console.log(response);
           let result = response.data.respBody;
-
-          // <b-card
-          //   :title="$store.getUser(c.claim.receiver).name"
-          //   tag="article"
-          //   style="max-width:500px"
-          //   class="mt-2"
-          // >
-          //   <b-card-text>
-          //     
-          //   </b-card-text>
-
-          //   <b-button href="#" variant="primary" @click="verify(c)">驗證</b-button>
-          // </b-card>
-
           if (result){
             const h = _this.$createElement
 
             let c = credential;
+            let issuer = _this.$store.getUser(c.issuer)
+            let receiver = _this.$store.getUser(c.claim.receiver)
+            let starttime = (c.claim.starttime)
             let msg = `
-            <p>地點： ${_this.$store.getUser(c.issuer).name}</p>
+            <p>地點: <a href="#nogo" title="${c.issuer}">${issuer?issuer.name:c.issuer}</a></p>
+            <p>參與人: <a href="#nogo" title="${c.claim.receiver}">${receiver?receiver.name:c.claim.receiver}</a></p>
               <p>內容: ${c.claim.content}</p>
-               <p>開始時間: ${c.claim.starttime}</p>
+              <br/>
+               <p>開始時間: ${starttime}</p>
               <p>結束時間: ${c.claim.endtime}</p>
-               <small>證書UUID：${c.id}</small>
+              <br/>
+               <p>證書UUID：${c.id}</p>
             `
             const msgVNode = h('div', { domProps: { innerHTML: msg } })
 
