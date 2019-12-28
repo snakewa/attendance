@@ -83,7 +83,7 @@ export default {
   created() {
       if(config.fisco_bcos.jsonrpc_url){
         this.fetchBlockHeight();
-        this.timer = setInterval(this.fetchBlockHeight, 1000)
+        this.timer = setInterval(this.fetchBlockHeight, 5000)
       }
   }
 };
