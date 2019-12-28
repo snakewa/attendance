@@ -30,7 +30,7 @@ var store = {
     },
     putCredential(credential) {
         let credentials = this.get("credentials");
-        if (credentials == undefined) credentials = {};
+        if (credentials == undefined || credentials == null) credentials = {};
         if (credentials[credential.claim.receiver] == undefined) credentials[credential.claim.receiver] = [];
         credentials[credential.claim.receiver].push(credential);
         console.log({credentials})
